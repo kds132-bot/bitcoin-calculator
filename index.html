@@ -4,31 +4,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080C11">
 <title>₿ 비트코인 투자 미래 계산기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --btc-orange:#F7931A;--btc-gold:#FFD700;--btc-dark:#0D1117;--btc-darker:#080C11;
-  --btc-card:#131A24;--btc-card-border:#1E2A3A;--btc-text:#E6EDF3;--btc-muted:#7D8590;
-  --btc-green:#3FB950;--btc-red:#F85149;--btc-blue:#58A6FF;
-  --glow-orange:rgba(247,147,26,0.15);--glow-gold:rgba(255,215,0,0.1);
-}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Noto Sans KR',sans-serif;background:var(--btc-darker);color:var(--btc-text);
-  min-height:100vh;overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 0%,rgba(247,147,26,0.06),transparent),
-    radial-gradient(ellipse 60% 40% at 80% 100%,rgba(255,215,0,0.04),transparent),
-    radial-gradient(ellipse 40% 30% at 50% 50%,rgba(88,166,255,0.02),transparent);
+
+html,body{
+background:#080C11 !important;
+color:#E6EDF3 !important;
+font-family:‘Noto Sans KR’,sans-serif;
+min-height:100vh;
+scroll-behavior:smooth;
+overflow-x:hidden;
+-webkit-text-size-adjust:100%;
 }
 
-/* Floating BTC symbols */
-.btc-float{position:fixed;font-family:‘Orbitron’;color:rgba(247,147,26,0.03);z-index:0;pointer-events:none;font-weight:900}
+body::before{
+content:’’;position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+background:
+radial-gradient(ellipse 80% 50% at 20% 0%,rgba(247,147,26,0.07),transparent),
+radial-gradient(ellipse 60% 40% at 80% 100%,rgba(255,215,0,0.05),transparent),
+radial-gradient(ellipse 40% 30% at 50% 50%,rgba(88,166,255,0.03),transparent);
+}
+
+.btc-float{position:fixed;font-family:‘Orbitron’,sans-serif;color:rgba(247,147,26,0.04);z-index:0;pointer-events:none;font-weight:900;user-select:none}
 .btc-float:nth-child(1){top:10%;left:5%;font-size:12rem;animation:floatA 20s ease-in-out infinite}
 .btc-float:nth-child(2){top:50%;right:5%;font-size:8rem;animation:floatB 15s ease-in-out infinite}
 .btc-float:nth-child(3){bottom:10%;left:40%;font-size:10rem;animation:floatA 18s ease-in-out infinite reverse}
@@ -38,161 +40,195 @@ body::before{
 .container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
 
 /* Header */
-.header{text-align:center;padding:50px 20px 40px;position:relative}
+.header{text-align:center;padding:50px 20px 40px}
 .header .btc-icon{
 display:inline-flex;align-items:center;justify-content:center;
 width:80px;height:80px;border-radius:50%;
 background:linear-gradient(135deg,#F7931A,#FFB347);
-box-shadow:0 0 40px rgba(247,147,26,0.3),0 0 80px rgba(247,147,26,0.1);
-font-family:‘Orbitron’;font-size:2.4rem;font-weight:900;color:#fff;
+box-shadow:0 0 40px rgba(247,147,26,0.35),0 0 80px rgba(247,147,26,0.12);
+font-family:‘Orbitron’,sans-serif;font-size:2.4rem;font-weight:900;color:#fff;
 margin-bottom:20px;animation:pulse 3s ease-in-out infinite;
 }
-@keyframes pulse{0%,100%{box-shadow:0 0 40px rgba(247,147,26,0.3),0 0 80px rgba(247,147,26,0.1)}50%{box-shadow:0 0 60px rgba(247,147,26,0.5),0 0 120px rgba(247,147,26,0.2)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 40px rgba(247,147,26,0.35),0 0 80px rgba(247,147,26,0.12)}50%{box-shadow:0 0 60px rgba(247,147,26,0.55),0 0 120px rgba(247,147,26,0.22)}}
 .header h1{
-font-family:‘Orbitron’,sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;
+font-family:‘Orbitron’,sans-serif;font-size:clamp(1.5rem,4vw,2.8rem);font-weight:800;
 background:linear-gradient(135deg,#F7931A 0%,#FFD700 50%,#F7931A 100%);
-background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+background-size:200% auto;
+-webkit-background-clip:text;background-clip:text;
+-webkit-text-fill-color:transparent;color:transparent;
 animation:shimmer 4s linear infinite;letter-spacing:-0.02em;
 }
 @keyframes shimmer{to{background-position:200% center}}
-.header p{color:var(–btc-muted);margin-top:10px;font-size:0.95rem;font-weight:300}
+.header p{color:#7D8590;margin-top:10px;font-size:0.95rem;font-weight:300}
 
 /* Input Section */
 .input-section{
-background:var(–btc-card);border:1px solid var(–btc-card-border);border-radius:16px;
-padding:32px;margin-bottom:30px;
-box-shadow:0 4px 30px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.03);
+background:#131A24 !important;border:1px solid #1E2A3A;border-radius:16px;
+padding:28px;margin-bottom:30px;
+box-shadow:0 4px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.03);
 }
 .input-section h2{
-font-family:‘Orbitron’;font-size:1.1rem;font-weight:600;color:var(–btc-orange);
+font-family:‘Orbitron’,sans-serif;font-size:1.05rem;font-weight:600;color:#F7931A !important;
 margin-bottom:24px;display:flex;align-items:center;gap:10px;
 }
-.input-section h2::before{content:’’;width:3px;height:20px;background:var(–btc-orange);border-radius:2px}
+.input-section h2::before{content:’’;display:block;width:3px;height:20px;background:#F7931A;border-radius:2px;flex-shrink:0}
 .input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
 .input-group{position:relative}
 .input-group label{
-display:block;font-size:0.78rem;font-weight:500;color:var(–btc-muted);
+display:block;font-size:0.78rem;font-weight:500;color:#7D8590 !important;
 margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em;
 }
 .input-group .unit{
 position:absolute;right:14px;top:50%;transform:translateY(25%);
-font-size:0.75rem;color:var(–btc-muted);font-family:‘JetBrains Mono’;pointer-events:none;
+font-size:0.75rem;color:#5A6370 !important;font-family:‘JetBrains Mono’,monospace;pointer-events:none;
 }
-.input-group input,.input-group select{
-width:100%;padding:12px 14px;padding-right:50px;
-background:var(–btc-darker);border:1px solid var(–btc-card-border);border-radius:10px;
-color:var(–btc-text);font-family:‘JetBrains Mono’,monospace;font-size:1rem;
-transition:all .25s;outline:none;
+.input-group input,
+.input-group select{
+width:100%;padding:12px 14px;padding-right:60px;
+background:#080C11 !important;
+border:1px solid #1E2A3A !important;
+border-radius:10px;
+color:#E6EDF3 !important;
+font-family:‘JetBrains Mono’,monospace;
+font-size:1rem;
+transition:border-color .25s, box-shadow .25s;
+outline:none;
+-webkit-appearance:none;
+appearance:none;
+color-scheme:dark;
 }
-.input-group input:focus{border-color:var(–btc-orange);box-shadow:0 0 0 3px var(–glow-orange)}
-.input-group input[type=range]{padding:0;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(90deg,var(–btc-orange),var(–btc-gold));cursor:pointer;border:none;margin-top:8px}
-.input-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(–btc-orange);cursor:pointer;box-shadow:0 0 10px rgba(247,147,26,0.5)}
-.range-val{font-family:‘JetBrains Mono’;color:var(–btc-orange);font-size:0.9rem;font-weight:700;margin-left:8px}
+.input-group input::placeholder{color:#3A424D !important}
+.input-group input:focus{border-color:#F7931A !important;box-shadow:0 0 0 3px rgba(247,147,26,0.15) !important}
 
-/* Calculate Button */
+/* Range */
+.input-group input[type=range]{
+padding:0 !important;height:6px !important;border-radius:3px !important;
+background:linear-gradient(90deg,#F7931A,#FFD700) !important;
+cursor:pointer;border:none !important;margin-top:8px;
+}
+.input-group input[type=range]::-webkit-slider-thumb{
+-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+background:#F7931A;cursor:pointer;border:2px solid #FFD700;
+box-shadow:0 0 12px rgba(247,147,26,0.5);
+}
+.input-group input[type=range]::-moz-range-thumb{
+width:22px;height:22px;border-radius:50%;
+background:#F7931A;cursor:pointer;border:2px solid #FFD700;
+}
+.range-val{font-family:‘JetBrains Mono’,monospace;color:#F7931A;font-size:0.9rem;font-weight:700;margin-left:8px}
+
+/* Button */
 .calc-btn{
 display:flex;align-items:center;justify-content:center;gap:10px;
 width:100%;max-width:400px;margin:30px auto;padding:16px 32px;
-background:linear-gradient(135deg,#F7931A,#E8850F);border:none;border-radius:12px;
-color:#fff;font-family:‘Orbitron’;font-size:1rem;font-weight:700;cursor:pointer;
+background:linear-gradient(135deg,#F7931A,#E8850F) !important;border:none;border-radius:12px;
+color:#fff !important;font-family:‘Orbitron’,sans-serif;font-size:1rem;font-weight:700;cursor:pointer;
 transition:all .3s;text-transform:uppercase;letter-spacing:0.1em;
-box-shadow:0 4px 20px rgba(247,147,26,0.3);
+box-shadow:0 4px 20px rgba(247,147,26,0.35);
+-webkit-tap-highlight-color:transparent;
 }
-.calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(247,147,26,0.4)}
+.calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(247,147,26,0.45)}
 .calc-btn:active{transform:translateY(0)}
-.calc-btn svg{width:20px;height:20px}
+.calc-btn svg{width:20px;height:20px;flex-shrink:0}
 
 /* Results */
 .results{display:none}
 .results.show{display:block;animation:fadeUp .6s ease-out}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* Summary Cards */
+/* Summary */
 .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px}
 @media(max-width:768px){.summary-grid{grid-template-columns:1fr}}
 .summary-card{
-background:var(–btc-card);border:1px solid var(–btc-card-border);border-radius:14px;
+background:#131A24 !important;border:1px solid #1E2A3A;border-radius:14px;
 padding:24px;position:relative;overflow:hidden;
-box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all .3s;
+box-shadow:0 4px 20px rgba(0,0,0,0.25);transition:all .3s;
 }
-.summary-card:hover{border-color:rgba(247,147,26,0.3);transform:translateY(-2px)}
+.summary-card:hover{border-color:rgba(247,147,26,0.35);transform:translateY(-2px)}
 .summary-card::before{
 content:’’;position:absolute;top:0;left:0;right:0;height:2px;
-background:linear-gradient(90deg,var(–btc-orange),var(–btc-gold),var(–btc-orange));
+background:linear-gradient(90deg,#F7931A,#FFD700,#F7931A);
 }
-.summary-card .period{font-size:0.75rem;color:var(–btc-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;font-weight:500}
-.summary-card .value{font-family:‘Orbitron’;font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;color:var(–btc-gold);margin-bottom:4px}
-.summary-card .sub{font-size:0.8rem;color:var(–btc-muted);font-weight:300}
-.summary-card .sub span{color:var(–btc-green);font-weight:500}
-.summary-card .sub span.negative{color:var(–btc-red)}
+.summary-card .period{font-size:0.75rem;color:#7D8590 !important;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;font-weight:500}
+.summary-card .value{font-family:‘Orbitron’,sans-serif;font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;color:#FFD700 !important;margin-bottom:4px}
+.summary-card .sub{font-size:0.8rem;color:#7D8590 !important;font-weight:300}
+.summary-card .sub span{color:#3FB950 !important;font-weight:500}
 
-/* Detail Cards */
+/* Detail */
 .detail-section{
-background:var(–btc-card);border:1px solid var(–btc-card-border);border-radius:16px;
-padding:32px;margin-bottom:30px;overflow:hidden;
-box-shadow:0 4px 30px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.03);
+background:#131A24 !important;border:1px solid #1E2A3A;border-radius:16px;
+padding:28px;margin-bottom:30px;overflow:hidden;
+box-shadow:0 4px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.03);
 }
 .detail-section h2{
-font-family:‘Orbitron’;font-size:1.1rem;font-weight:600;color:var(–btc-orange);
+font-family:‘Orbitron’,sans-serif;font-size:1.05rem;font-weight:600;color:#F7931A !important;
 margin-bottom:20px;display:flex;align-items:center;gap:10px;
 }
-.detail-section h2::before{content:’’;width:3px;height:20px;background:var(–btc-orange);border-radius:2px}
+.detail-section h2::before{content:’’;display:block;width:3px;height:20px;background:#F7931A;border-radius:2px;flex-shrink:0}
 
 /* Chart */
 .chart-container{position:relative;width:100%;height:400px;margin-bottom:10px}
+@media(max-width:768px){.chart-container{height:300px}}
 canvas{width:100%!important;height:100%!important}
 
 /* Table */
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid var(–btc-card-border)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid #1E2A3A}
 table{width:100%;border-collapse:collapse;font-size:0.82rem;white-space:nowrap}
-thead{background:rgba(247,147,26,0.08)}
+thead{background:rgba(247,147,26,0.08) !important}
 th{
-padding:12px 14px;text-align:right;font-family:‘JetBrains Mono’;font-size:0.72rem;
-color:var(–btc-orange);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;
-border-bottom:1px solid var(–btc-card-border);position:sticky;top:0;background:var(–btc-card);
+padding:12px 14px;text-align:right;font-family:‘JetBrains Mono’,monospace;font-size:0.72rem;
+color:#F7931A !important;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;
+border-bottom:1px solid #1E2A3A;position:sticky;top:0;background:#131A24 !important;
 }
 th:first-child{text-align:center}
 td{
-padding:10px 14px;text-align:right;font-family:‘JetBrains Mono’;font-size:0.78rem;
-color:var(–btc-text);border-bottom:1px solid rgba(30,42,58,0.5);
+padding:10px 14px;text-align:right;font-family:‘JetBrains Mono’,monospace;font-size:0.78rem;
+color:#E6EDF3 !important;border-bottom:1px solid rgba(30,42,58,0.5);background:#131A24 !important;
 }
-td:first-child{text-align:center;color:var(–btc-muted);font-weight:600}
-tr:hover td{background:rgba(247,147,26,0.03)}
-.positive{color:var(–btc-green)}
-.negative{color:var(–btc-red)}
+td:first-child{text-align:center;color:#7D8590 !important;font-weight:600}
+tr:hover td{background:#182030 !important}
+.positive{color:#3FB950 !important}
+.negative{color:#F85149 !important}
 
 /* Tabs */
-.tabs{display:flex;gap:4px;margin-bottom:20px;background:var(–btc-darker);border-radius:10px;padding:4px}
+.tabs{display:flex;gap:4px;margin-bottom:20px;background:#080C11 !important;border-radius:10px;padding:4px}
 .tab-btn{
-flex:1;padding:10px 16px;border:none;background:transparent;color:var(–btc-muted);
-font-family:‘Noto Sans KR’;font-size:0.85rem;font-weight:500;cursor:pointer;
+flex:1;padding:10px 16px;border:none;
+background:transparent !important;color:#7D8590 !important;
+font-family:‘Noto Sans KR’,sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;
 border-radius:8px;transition:all .25s;
+-webkit-tap-highlight-color:transparent;
 }
-.tab-btn.active{background:var(–btc-card);color:var(–btc-orange);box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.tab-btn.active{background:#131A24 !important;color:#F7931A !important;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
 
-/* Consumption insight */
+/* Insight */
 .insight-bar{
 display:flex;align-items:center;gap:16px;padding:20px;
-background:linear-gradient(135deg,rgba(247,147,26,0.05),rgba(255,215,0,0.03));
-border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
+background:linear-gradient(135deg,rgba(247,147,26,0.06),rgba(255,215,0,0.03)) !important;
+border:1px solid rgba(247,147,26,0.18);border-radius:12px;margin-top:20px;
 }
 .insight-bar .emoji{font-size:2rem}
 .insight-bar .text{flex:1}
-.insight-bar .text .label{font-size:0.78rem;color:var(–btc-muted);margin-bottom:2px}
-.insight-bar .text .val{font-family:‘Orbitron’;font-size:1.1rem;font-weight:700;color:var(–btc-gold)}
+.insight-bar .text .label{font-size:0.78rem;color:#7D8590 !important;margin-bottom:2px}
+.insight-bar .text .val{font-family:‘Orbitron’,sans-serif;font-size:1.1rem;font-weight:700;color:#FFD700 !important}
 
 /* Footer */
-.footer{text-align:center;padding:40px 20px;color:var(–btc-muted);font-size:0.75rem}
+.footer{text-align:center;padding:40px 20px;color:#7D8590 !important;font-size:0.75rem}
 .footer .disclaimer{max-width:600px;margin:0 auto;line-height:1.6}
 
 /* Scrollbar */
 ::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(–btc-darker)}
-::-webkit-scrollbar-thumb{background:var(–btc-card-border);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(–btc-muted)}
+::-webkit-scrollbar-track{background:#080C11}
+::-webkit-scrollbar-thumb{background:#1E2A3A;border-radius:3px}
 
-/* Animations for numbers */
-.counting{transition:all .3s}
+input[type=“number”]::-webkit-inner-spin-button,
+input[type=“number”]::-webkit-outer-spin-button{opacity:0.3}
+
+@media(max-width:500px){
+.input-section{padding:20px}
+.detail-section{padding:20px}
+.input-grid{grid-template-columns:1fr}
+}
 </style>
 
 </head>
@@ -204,15 +240,11 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
 
 <div class="container">
 
-<!-- Header -->
-
 <div class="header">
   <div class="btc-icon">₿</div>
   <h1>BITCOIN FUTURE CALCULATOR</h1>
   <p>비트코인 투자 시 미래 자산을 시뮬레이션합니다</p>
 </div>
-
-<!-- Input Section -->
 
 <div class="input-section">
   <h2>초기 설정</h2>
@@ -244,7 +276,7 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
     </div>
     <div class="input-group">
       <label>소비 개시 연차</label>
-      <input type="number" id="startYear" value="10" min="1" max="30" step="1">
+      <input type="number" id="startYear" value="10" min="1" max="50" step="1">
       <span class="unit">년차</span>
     </div>
     <div class="input-group">
@@ -279,16 +311,8 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
   </button>
 </div>
 
-<!-- Results -->
-
 <div class="results" id="results">
-
-  <!-- Summary -->
-
   <div class="summary-grid" id="summaryGrid"></div>
-
-  <!-- Consumption Insight -->
-
   <div class="insight-bar" id="insightBar" style="display:none">
     <div class="emoji">🏖️</div>
     <div class="text">
@@ -296,24 +320,16 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
       <div class="val" id="insightVal"></div>
     </div>
   </div>
-
-  <!-- Chart Section -->
-
   <div class="detail-section">
     <h2>자산 성장 추이</h2>
     <div class="tabs">
       <button class="tab-btn active" onclick="switchChart('capital',this)">순자산</button>
       <button class="tab-btn" onclick="switchChart('asset',this)">총자산 vs 부채</button>
-      <button class="tab-btn" onclick="switchChart('btcprice',this)">비트코인 가격</button>
+      <button class="tab-btn" onclick="switchChart('btcprice',this)">BTC 가격</button>
       <button class="tab-btn" onclick="switchChart('ratio',this)">부채비율</button>
     </div>
-    <div class="chart-container">
-      <canvas id="mainChart"></canvas>
-    </div>
+    <div class="chart-container"><canvas id="mainChart"></canvas></div>
   </div>
-
-  <!-- Table Section -->
-
   <div class="detail-section">
     <h2>연도별 상세 데이터</h2>
     <div class="tabs">
@@ -323,8 +339,6 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
     <div class="table-wrap" id="tableWrap"></div>
   </div>
 </div>
-
-<!-- Footer -->
 
 <div class="footer">
   <div class="disclaimer">
@@ -338,256 +352,107 @@ border:1px solid rgba(247,147,26,0.15);border-radius:12px;margin-top:20px;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <script>
-let chartInstance = null;
-let simData = null;
-let currentChart = 'capital';
-let currentTable = 'krw';
+let chartInstance=null,simData=null,currentChart='capital',currentTable='krw';
 
-function formatNum(n, decimals=0) {
-  if (Math.abs(n) >= 1e4) return (n/1e4).toFixed(1) + '억원';
-  return n.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '만원';
+function formatWon(n){
+  if(Math.abs(n)>=10000)return(n/10000).toFixed(2)+'억원';
+  return Math.round(n).toLocaleString('ko-KR')+'만원';
 }
-function formatWon(n) {
-  if (Math.abs(n) >= 10000) return (n/10000).toFixed(2) + '억원';
-  return Math.round(n).toLocaleString('ko-KR') + '만원';
-}
-function formatPct(n) { return (n * 100).toFixed(1) + '%'; }
 
-function calculate() {
-  const capital = +document.getElementById('capital').value;
-  const loan = +document.getElementById('loan').value;
-  const rate = +document.getElementById('rate').value / 100;
-  const growth = +document.getElementById('growth').value / 100;
-  const consumption = +document.getElementById('consumption').value * 12;
-  const startYear = Math.max(1, Math.round(+document.getElementById('startYear').value));
-  document.getElementById('startYear').value = startYear;
-  const inflation = +document.getElementById('inflation').value / 100;
-  const btcPrice = +document.getElementById('btcPrice').value;
-  const saving = +document.getElementById('saving').value * 12;
-  const savingYears = +document.getElementById('savingYears').value;
-  const years = +document.getElementById('simYears').value;
+function calculate(){
+  const capital=+document.getElementById('capital').value;
+  const loan=+document.getElementById('loan').value;
+  const rate=+document.getElementById('rate').value/100;
+  const growth=+document.getElementById('growth').value/100;
+  const consumption=+document.getElementById('consumption').value*12;
+  const startYear=Math.max(1,Math.round(+document.getElementById('startYear').value));
+  document.getElementById('startYear').value=startYear;
+  const inflation=+document.getElementById('inflation').value/100;
+  const btcPrice=+document.getElementById('btcPrice').value;
+  const saving=+document.getElementById('saving').value*12;
+  const savingYears=+document.getElementById('savingYears').value;
+  const years=+document.getElementById('simYears').value;
 
-  const data = [];
-  // Initial state: buy BTC with capital + loan
-  const totalInvest = capital + loan;
-  let btcHeld = totalInvest / btcPrice; // BTC amount
-  let loanRemain = loan; // loan in KRW (만원)
-  let currentBtcPrice = btcPrice;
+  const data=[];
+  let btcHeld=(capital+loan)/btcPrice,loanRemain=loan,curPrice=btcPrice;
 
-  for (let y = 1; y <= years; y++) {
-    currentBtcPrice = (y === 1) ? btcPrice : data[y-2].btcPrice * (1 + growth);
-    
-    const assetKRW = btcHeld * currentBtcPrice;
-    const interestKRW = loanRemain * rate;
-    
-    let consumeKRW = 0;
-    if (y >= startYear) {
-      consumeKRW = consumption * Math.pow(1 + inflation, y - startYear);
-    }
-    
-    let savingKRW = 0;
-    if (y <= savingYears) savingKRW = saving;
+  for(let y=1;y<=years;y++){
+    curPrice=(y===1)?btcPrice:data[y-2].btcPrice*(1+growth);
+    const assetKRW=btcHeld*curPrice;
+    const interestKRW=loanRemain*rate;
+    let consumeKRW=0;
+    if(y>=startYear)consumeKRW=consumption*Math.pow(1+inflation,y-startYear);
+    let savingKRW=(y<=savingYears)?saving:0;
 
-    // BTC equivalents
-    const assetBTC = btcHeld;
-    const loanBTC = loanRemain / currentBtcPrice;
-    const consumeBTC = consumeKRW / currentBtcPrice;
-    const interestBTC = interestKRW / currentBtcPrice;
-    const savingBTC = savingKRW / currentBtcPrice;
-    const capitalKRW = assetKRW - loanRemain;
-    const capitalBTC = assetBTC - loanBTC;
-    const debtRatio = loanRemain / assetKRW;
+    const assetBTC=btcHeld,loanBTC=loanRemain/curPrice;
+    const consumeBTC=consumeKRW/curPrice,interestBTC=interestKRW/curPrice,savingBTC=savingKRW/curPrice;
+    const capitalKRW=assetKRW-loanRemain,capitalBTC=assetBTC-loanBTC;
+    const debtRatio=loanRemain/assetKRW;
 
-    data.push({
-      year: y,
-      btcPrice: currentBtcPrice,
-      assetBTC, loanBTC, consumeBTC, interestBTC, savingBTC, capitalBTC,
-      assetKRW, loanKRW: loanRemain, consumeKRW, interestKRW, savingKRW, capitalKRW,
-      debtRatio,
-      returnRate: capitalKRW / capital,
-      btcHeld
-    });
-
-    // Sell BTC for consumption & interest, buy BTC with savings
-    btcHeld = btcHeld - consumeBTC - interestBTC + savingBTC;
+    data.push({year:y,btcPrice:curPrice,assetBTC,loanBTC,consumeBTC,interestBTC,savingBTC,capitalBTC,assetKRW,loanKRW:loanRemain,consumeKRW,interestKRW,savingKRW,capitalKRW,debtRatio,btcHeld});
+    btcHeld=btcHeld-consumeBTC-interestBTC+savingBTC;
   }
 
-  simData = data;
-
-  // Show results
+  simData=data;
   document.getElementById('results').classList.add('show');
 
-  // Summary cards
-  const milestones = [
-    { yr: 10, label: '10년차' },
-    { yr: 20, label: '20년차' },
-    { yr: years, label: years + '년차' }
-  ];
-  let summaryHTML = '';
-  milestones.forEach(m => {
-    const d = data[Math.min(m.yr, years) - 1];
-    if (!d) return;
-    const returnPct = ((d.capitalKRW / capital - 1) * 100);
-    summaryHTML += `
-      <div class="summary-card">
-        <div class="period">${m.label}</div>
-        <div class="value">${formatWon(d.capitalKRW)}</div>
-        <div class="sub">수익률 <span>${returnPct.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}%</span></div>
-        <div class="sub" style="margin-top:4px">월소비 <span>${d.consumeKRW > 0 ? Math.round(d.consumeKRW/12).toLocaleString()+'만원' : '-'}</span></div>
-      </div>`;
+  const milestones=[{yr:10,label:'10년차'},{yr:20,label:'20년차'},{yr:years,label:years+'년차'}];
+  let html='';
+  milestones.forEach(m=>{
+    const d=data[Math.min(m.yr,years)-1];if(!d)return;
+    const ret=((d.capitalKRW/capital-1)*100);
+    html+=`<div class="summary-card"><div class="period">${m.label}</div><div class="value">${formatWon(d.capitalKRW)}</div><div class="sub">수익률 <span>${ret.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')}%</span></div><div class="sub" style="margin-top:4px">월소비 <span>${d.consumeKRW>0?Math.round(d.consumeKRW/12).toLocaleString()+'만원':'-'}</span></div></div>`;
   });
-  document.getElementById('summaryGrid').innerHTML = summaryHTML;
+  document.getElementById('summaryGrid').innerHTML=html;
 
-  // Insight bar
-  if (startYear <= years) {
-    const d = data[startYear - 1];
-    document.getElementById('insightBar').style.display = 'flex';
-    document.getElementById('insightVal').textContent = 
-      Math.round(d.consumeKRW / 12).toLocaleString() + '만원 / 월 (연 ' + Math.round(d.consumeKRW).toLocaleString() + '만원)';
+  if(startYear<=years){
+    const d=data[startYear-1];
+    document.getElementById('insightBar').style.display='flex';
+    document.getElementById('insightVal').textContent=Math.round(d.consumeKRW/12).toLocaleString()+'만원 / 월 (연 '+Math.round(d.consumeKRW).toLocaleString()+'만원)';
   }
-
-  renderChart();
-  renderTable();
-
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderChart();renderTable();
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function switchChart(type, btn) {
-  currentChart = type;
-  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderChart();
+function switchChart(t,b){currentChart=t;b.parentElement.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderChart();}
+
+function renderChart(){
+  if(!simData)return;if(chartInstance)chartInstance.destroy();
+  const ctx=document.getElementById('mainChart').getContext('2d');
+  const labels=simData.map(d=>d.year+'년');
+  let datasets=[];
+  const og=ctx.createLinearGradient(0,0,0,400);og.addColorStop(0,'rgba(247,147,26,0.3)');og.addColorStop(1,'rgba(247,147,26,0)');
+  const gg=ctx.createLinearGradient(0,0,0,400);gg.addColorStop(0,'rgba(255,215,0,0.2)');gg.addColorStop(1,'rgba(255,215,0,0)');
+
+  if(currentChart==='capital')datasets=[{label:'순자산 (만원)',data:simData.map(d=>d.capitalKRW),borderColor:'#F7931A',backgroundColor:og,fill:true,borderWidth:2,pointRadius:2,tension:.3}];
+  else if(currentChart==='asset')datasets=[{label:'총자산 (만원)',data:simData.map(d=>d.assetKRW),borderColor:'#3FB950',backgroundColor:'rgba(63,185,80,0.08)',fill:true,borderWidth:2,pointRadius:2,tension:.3},{label:'부채 (만원)',data:simData.map(d=>d.loanKRW),borderColor:'#F85149',backgroundColor:'rgba(248,81,73,0.08)',fill:true,borderWidth:2,pointRadius:2,tension:.3}];
+  else if(currentChart==='btcprice')datasets=[{label:'BTC 가격 (만원)',data:simData.map(d=>d.btcPrice),borderColor:'#FFD700',backgroundColor:gg,fill:true,borderWidth:2,pointRadius:2,tension:.3}];
+  else if(currentChart==='ratio')datasets=[{label:'부채비율',data:simData.map(d=>d.debtRatio*100),borderColor:'#58A6FF',backgroundColor:'rgba(88,166,255,0.08)',fill:true,borderWidth:2,pointRadius:2,tension:.3}];
+
+  chartInstance=new Chart(ctx,{type:'line',data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},
+    plugins:{legend:{labels:{color:'#7D8590',font:{size:12}}},tooltip:{backgroundColor:'rgba(13,17,23,0.95)',borderColor:'#1E2A3A',borderWidth:1,bodyFont:{size:12},callbacks:{label:function(c){let v=c.parsed.y;if(currentChart==='ratio')return c.dataset.label+': '+v.toFixed(1)+'%';if(Math.abs(v)>=10000)return c.dataset.label+': '+(v/10000).toFixed(2)+'억원';return c.dataset.label+': '+Math.round(v).toLocaleString('ko-KR')+'만원';}}}},
+    scales:{x:{grid:{color:'rgba(30,42,58,0.5)'},ticks:{color:'#7D8590',font:{size:10}}},y:{grid:{color:'rgba(30,42,58,0.5)'},ticks:{color:'#7D8590',font:{size:10},callback:function(v){if(currentChart==='ratio')return v.toFixed(0)+'%';if(Math.abs(v)>=10000)return(v/10000).toFixed(0)+'억';return v.toLocaleString('ko-KR');}}}}
+  }});
 }
 
-function renderChart() {
-  if (!simData) return;
-  if (chartInstance) chartInstance.destroy();
+function switchTable(t,b){currentTable=t;b.parentElement.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderTable();}
 
-  const ctx = document.getElementById('mainChart').getContext('2d');
-  const labels = simData.map(d => d.year + '년');
-  
-  let datasets = [];
-  const orangeGrad = ctx.createLinearGradient(0, 0, 0, 400);
-  orangeGrad.addColorStop(0, 'rgba(247,147,26,0.3)');
-  orangeGrad.addColorStop(1, 'rgba(247,147,26,0)');
-  const goldGrad = ctx.createLinearGradient(0, 0, 0, 400);
-  goldGrad.addColorStop(0, 'rgba(255,215,0,0.2)');
-  goldGrad.addColorStop(1, 'rgba(255,215,0,0)');
-
-  if (currentChart === 'capital') {
-    datasets = [{
-      label: '순자산 (만원)', data: simData.map(d => d.capitalKRW),
-      borderColor: '#F7931A', backgroundColor: orangeGrad, fill: true,
-      borderWidth: 2, pointRadius: 2, tension: 0.3
-    }];
-  } else if (currentChart === 'asset') {
-    datasets = [
-      { label: '총자산 (만원)', data: simData.map(d => d.assetKRW), borderColor: '#3FB950', backgroundColor: 'rgba(63,185,80,0.08)', fill: true, borderWidth: 2, pointRadius: 2, tension: 0.3 },
-      { label: '부채 (만원)', data: simData.map(d => d.loanKRW), borderColor: '#F85149', backgroundColor: 'rgba(248,81,73,0.08)', fill: true, borderWidth: 2, pointRadius: 2, tension: 0.3 }
-    ];
-  } else if (currentChart === 'btcprice') {
-    datasets = [{
-      label: '비트코인 가격 (만원)', data: simData.map(d => d.btcPrice),
-      borderColor: '#FFD700', backgroundColor: goldGrad, fill: true,
-      borderWidth: 2, pointRadius: 2, tension: 0.3
-    }];
-  } else if (currentChart === 'ratio') {
-    datasets = [{
-      label: '부채비율', data: simData.map(d => d.debtRatio * 100),
-      borderColor: '#58A6FF', backgroundColor: 'rgba(88,166,255,0.08)', fill: true,
-      borderWidth: 2, pointRadius: 2, tension: 0.3
-    }];
-  }
-
-  chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: { labels, datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { labels: { color: '#7D8590', font: { family: 'Noto Sans KR', size: 12 } } },
-        tooltip: {
-          backgroundColor: 'rgba(13,17,23,0.95)', borderColor: '#1E2A3A', borderWidth: 1,
-          titleFont: { family: 'Noto Sans KR' }, bodyFont: { family: 'JetBrains Mono', size: 12 },
-          callbacks: {
-            label: function(ctx) {
-              let v = ctx.parsed.y;
-              if (currentChart === 'ratio') return ctx.dataset.label + ': ' + v.toFixed(1) + '%';
-              if (Math.abs(v) >= 10000) return ctx.dataset.label + ': ' + (v/10000).toFixed(2) + '억원';
-              return ctx.dataset.label + ': ' + Math.round(v).toLocaleString('ko-KR') + '만원';
-            }
-          }
-        }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(30,42,58,0.5)' }, ticks: { color: '#7D8590', font: { family: 'JetBrains Mono', size: 10 } } },
-        y: {
-          grid: { color: 'rgba(30,42,58,0.5)' },
-          ticks: {
-            color: '#7D8590', font: { family: 'JetBrains Mono', size: 10 },
-            callback: function(v) {
-              if (currentChart === 'ratio') return v.toFixed(0) + '%';
-              if (Math.abs(v) >= 10000) return (v/10000).toFixed(0) + '억';
-              return v.toLocaleString('ko-KR');
-            }
-          }
-        }
-      }
-    }
+function renderTable(){
+  if(!simData)return;
+  let h='<table><thead><tr>';
+  if(currentTable==='krw')h+='<th>연차</th><th>BTC가격</th><th>총자산</th><th>부채</th><th>이자</th><th>소비</th><th>저축</th><th>순자산</th><th>부채비율</th>';
+  else h+='<th>연차</th><th>자산(BTC)</th><th>부채(BTC)</th><th>이자(BTC)</th><th>소비(BTC)</th><th>저축(BTC)</th><th>순자산(BTC)</th>';
+  h+='</tr></thead><tbody>';
+  simData.forEach(d=>{
+    if(currentTable==='krw')h+=`<tr><td>${d.year}</td><td>${Math.round(d.btcPrice).toLocaleString()}</td><td>${Math.round(d.assetKRW).toLocaleString()}</td><td class="negative">${Math.round(d.loanKRW).toLocaleString()}</td><td class="negative">${Math.round(d.interestKRW).toLocaleString()}</td><td>${d.consumeKRW>0?Math.round(d.consumeKRW).toLocaleString():'-'}</td><td>${d.savingKRW>0?Math.round(d.savingKRW).toLocaleString():'-'}</td><td class="positive">${Math.round(d.capitalKRW).toLocaleString()}</td><td>${(d.debtRatio*100).toFixed(1)}%</td></tr>`;
+    else h+=`<tr><td>${d.year}</td><td>${d.assetBTC.toFixed(4)}</td><td class="negative">${d.loanBTC.toFixed(4)}</td><td class="negative">${d.interestBTC.toFixed(6)}</td><td>${d.consumeBTC>0?d.consumeBTC.toFixed(6):'-'}</td><td>${d.savingBTC>0?d.savingBTC.toFixed(6):'-'}</td><td class="positive">${d.capitalBTC.toFixed(4)}</td></tr>`;
   });
+  h+='</tbody></table>';
+  document.getElementById('tableWrap').innerHTML=h;
 }
 
-function switchTable(type, btn) {
-  currentTable = type;
-  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTable();
-}
-
-function renderTable() {
-  if (!simData) return;
-  
-  let html = '<table><thead><tr>';
-  if (currentTable === 'krw') {
-    html += '<th>연차</th><th>BTC가격</th><th>총자산</th><th>부채</th><th>이자</th><th>소비</th><th>저축</th><th>순자산</th><th>부채비율</th>';
-  } else {
-    html += '<th>연차</th><th>자산(BTC)</th><th>부채(BTC)</th><th>이자(BTC)</th><th>소비(BTC)</th><th>저축(BTC)</th><th>순자산(BTC)</th>';
-  }
-  html += '</tr></thead><tbody>';
-  
-  simData.forEach(d => {
-    if (currentTable === 'krw') {
-      html += `<tr>
-        <td>${d.year}</td>
-        <td>${Math.round(d.btcPrice).toLocaleString()}</td>
-        <td>${Math.round(d.assetKRW).toLocaleString()}</td>
-        <td class="negative">${Math.round(d.loanKRW).toLocaleString()}</td>
-        <td class="negative">${Math.round(d.interestKRW).toLocaleString()}</td>
-        <td>${d.consumeKRW > 0 ? Math.round(d.consumeKRW).toLocaleString() : '-'}</td>
-        <td>${d.savingKRW > 0 ? Math.round(d.savingKRW).toLocaleString() : '-'}</td>
-        <td class="positive">${Math.round(d.capitalKRW).toLocaleString()}</td>
-        <td>${(d.debtRatio*100).toFixed(1)}%</td>
-      </tr>`;
-    } else {
-      html += `<tr>
-        <td>${d.year}</td>
-        <td>${d.assetBTC.toFixed(4)}</td>
-        <td class="negative">${d.loanBTC.toFixed(4)}</td>
-        <td class="negative">${d.interestBTC.toFixed(6)}</td>
-        <td>${d.consumeBTC > 0 ? d.consumeBTC.toFixed(6) : '-'}</td>
-        <td>${d.savingBTC > 0 ? d.savingBTC.toFixed(6) : '-'}</td>
-        <td class="positive">${d.capitalBTC.toFixed(4)}</td>
-      </tr>`;
-    }
-  });
-  
-  html += '</tbody></table>';
-  document.getElementById('tableWrap').innerHTML = html;
-}
-
-// Auto-calculate on load
-window.addEventListener('DOMContentLoaded', () => { calculate(); });
+window.addEventListener('DOMContentLoaded',()=>{calculate();});
 </script>
 
 </body>
